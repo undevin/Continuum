@@ -31,7 +31,11 @@ class AddPostTableViewController: UITableViewController {
   
   @IBAction func addPostButtonTapped(_ sender: UIButton) {
     guard let photo = photoImageView.image,
-      let caption = captionTextField.text else { return }
+      let caption = captionTextField.text,
+      !caption.isEmpty else {
+        presentSimpleAlertWith(title: "We can't create this Post", message: "Please make sure you have input an image and caption")
+        return
+    }
     PostController.shared.createPostWith(photo: photo, caption: caption) { (post) in
       
     }

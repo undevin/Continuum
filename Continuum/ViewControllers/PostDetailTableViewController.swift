@@ -42,7 +42,10 @@ class PostDetailTableViewController: UITableViewController {
     let commentAction = UIAlertAction(title: "Comment", style: .default) { (_) in
       guard let commentText = alertController.textFields?.first?.text,
         !commentText.isEmpty,
-        let post = self.post else { return }
+        let post = self.post else {
+          self.presentSimpleAlertWith(title: "Please make sure your comment has text", message: nil)
+          return
+      }
       PostController.shared.addComment(text: commentText, post: post, completion: { (comment) in
       })
       self.tableView.reloadData()
