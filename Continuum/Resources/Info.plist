@@ -45,5 +45,7 @@
 	<string>We use your camera to allow you to take and post pictures right in the app</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>We acces your photos to allow you to select and upload pictures to the Continuum feed</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>We would love to save photos to a special Continuum photo album in your photos applicaiton</string>
 </dict>
 </plist>

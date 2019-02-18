@@ -58,8 +58,8 @@ class PostDetailTableViewController: UITableViewController {
   }
   
   @IBAction func shareButtonTapped(_ sender: Any) {
-    guard let comment = post?.caption else { return }
-    let shareSheet = UIActivityViewController(activityItems: [comment], applicationActivities: nil)
+    guard let comment = post?.caption, let photo = post?.photo else { return }
+    let shareSheet = UIActivityViewController(activityItems: [comment, photo], applicationActivities: nil)
     present(shareSheet, animated: true, completion: nil)
   }
   
@@ -82,3 +82,5 @@ extension PostDetailTableViewController {
     return cell
   }
 }
+
+
