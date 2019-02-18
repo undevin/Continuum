@@ -20,10 +20,9 @@ class AddPostTableViewController: UITableViewController {
   //MARK: - View Lifecycle Methods
   override func viewDidDisappear(_ animated: Bool) {
     super.viewDidDisappear(animated)
-    selectedImage = nil
+    captionTextField.text = nil
   }
   
-  //MARK: - Navigation
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if segue.identifier == "toPhotoSelectorVC" {
       let photoSelector = segue.destination as? PhotoSelectorViewController
@@ -33,12 +32,20 @@ class AddPostTableViewController: UITableViewController {
   
   //MARK: - Actions
   @IBAction func addPostButtonTapped(_ sender: UIButton) {
+<<<<<<< HEAD
     guard let photo = selectedImage,
+      let caption = captionTextField.text else { return }
+||||||| merged common ancestors
+    guard let photo = photoImageView.image,
+      let caption = captionTextField.text else { return }
+=======
+    guard let photo = photoImageView.image,
       let caption = captionTextField.text,
       !caption.isEmpty else {
         presentSimpleAlertWith(title: "We can't create this Post", message: "Please make sure you have input an image and caption")
         return
     }
+>>>>>>> partOneBlackDiamond
     PostController.shared.createPostWith(photo: photo, caption: caption) { (post) in
       
     }
