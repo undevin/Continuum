@@ -22,6 +22,7 @@ class PostDetailTableViewController: UITableViewController {
     // MARK: - Properties
     var post: Post? {
         didSet {
+            loadViewIfNeeded()
             updateViews()
         }
     }
@@ -46,7 +47,7 @@ class PostDetailTableViewController: UITableViewController {
     }
     
     func presentAlertController() {
-        let alertController = UIAlertController(title: "Post Comment", message: "Whatever you little heart desires.", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Post a Comment", message: "Whatever you little heart desires.", preferredStyle: .alert)
         alertController.addTextField { (textfield) in
             textfield.placeholder = "Compose"
         }

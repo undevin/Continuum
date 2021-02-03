@@ -105,50 +105,47 @@
                             <rect key="frame" x="0.0" y="0.0" width="414" height="450"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="84" translatesAutoresizingMaskIntoConstraints="NO" id="DcP-MH-tvJ">
-                                    <rect key="frame" x="10" y="10" width="394" height="430"/>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6MB-DP-8ks">
+                                    <rect key="frame" x="69.5" y="50" width="275" height="275"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="275" id="Z2b-X8-31v"/>
+                                        <constraint firstAttribute="width" secondItem="6MB-DP-8ks" secondAttribute="height" multiplier="1:1" id="d07-1j-j51"/>
+                                    </constraints>
+                                </imageView>
+                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="UYs-Gc-Npz">
+                                    <rect key="frame" x="41.5" y="400" width="331" height="30"/>
                                     <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0CQ-kL-lcM">
-                                            <rect key="frame" x="39" y="0.0" width="316" height="316"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" secondItem="0CQ-kL-lcM" secondAttribute="height" multiplier="1:1" id="MYc-Gg-oSV"/>
-                                            </constraints>
-                                        </imageView>
-                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="28" translatesAutoresizingMaskIntoConstraints="NO" id="Dhk-ur-5PS">
-                                            <rect key="frame" x="56.5" y="400" width="281" height="30"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wQZ-Bm-9rn">
-                                                    <rect key="frame" x="0.0" y="0.0" width="75" height="30"/>
-                                                    <state key="normal" title=" Comment "/>
-                                                    <connections>
-                                                        <action selector="commentButtonTapped:" destination="Kk9-ig-3Cc" eventType="touchUpInside" id="Qfn-xp-p2b"/>
-                                                    </connections>
-                                                </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c99-cV-bBO">
-                                                    <rect key="frame" x="103" y="0.0" width="75" height="30"/>
-                                                    <state key="normal" title=" Share "/>
-                                                    <connections>
-                                                        <action selector="shareButtonTapped:" destination="Kk9-ig-3Cc" eventType="touchUpInside" id="ul4-eI-u83"/>
-                                                    </connections>
-                                                </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KLC-X0-GSB">
-                                                    <rect key="frame" x="206" y="0.0" width="75" height="30"/>
-                                                    <state key="normal" title=" Follow "/>
-                                                    <connections>
-                                                        <action selector="followButtonTapped:" destination="Kk9-ig-3Cc" eventType="touchUpInside" id="1uq-r1-Zdn"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                        </stackView>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kKZ-Bg-6hk">
+                                            <rect key="frame" x="0.0" y="0.0" width="97" height="30"/>
+                                            <state key="normal" title="Comment"/>
+                                            <connections>
+                                                <action selector="commentButtonTapped:" destination="Kk9-ig-3Cc" eventType="touchUpInside" id="aAJ-z9-ELf"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0nh-SK-RfB">
+                                            <rect key="frame" x="117" y="0.0" width="97" height="30"/>
+                                            <state key="normal" title="Share"/>
+                                            <connections>
+                                                <action selector="shareButtonTapped:" destination="Kk9-ig-3Cc" eventType="touchUpInside" id="sUe-QV-mb2"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="crS-UO-5Lg">
+                                            <rect key="frame" x="234" y="0.0" width="97" height="30"/>
+                                            <state key="normal" title="Follow"/>
+                                            <connections>
+                                                <action selector="followButtonTapped:" destination="Kk9-ig-3Cc" eventType="touchUpInside" id="Kwu-tt-jWZ"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                 </stackView>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
-                                <constraint firstAttribute="bottom" secondItem="DcP-MH-tvJ" secondAttribute="bottom" constant="10" id="9UI-3h-heV"/>
-                                <constraint firstItem="DcP-MH-tvJ" firstAttribute="leading" secondItem="c6D-Gd-Yet" secondAttribute="leading" constant="10" id="QTY-zu-e9t"/>
-                                <constraint firstAttribute="trailing" secondItem="DcP-MH-tvJ" secondAttribute="trailing" constant="10" id="lEo-Sp-9da"/>
-                                <constraint firstItem="DcP-MH-tvJ" firstAttribute="top" secondItem="c6D-Gd-Yet" secondAttribute="top" constant="10" id="n8f-Cz-bgT"/>
+                                <constraint firstItem="6MB-DP-8ks" firstAttribute="centerX" secondItem="c6D-Gd-Yet" secondAttribute="centerX" id="1uB-re-hGk"/>
+                                <constraint firstItem="6MB-DP-8ks" firstAttribute="top" secondItem="c6D-Gd-Yet" secondAttribute="top" constant="50" id="B8f-vc-0tW"/>
+                                <constraint firstItem="UYs-Gc-Npz" firstAttribute="width" secondItem="c6D-Gd-Yet" secondAttribute="width" multiplier="0.8" id="LYM-dk-MaB"/>
+                                <constraint firstItem="UYs-Gc-Npz" firstAttribute="top" secondItem="6MB-DP-8ks" secondAttribute="bottom" constant="75" id="bXs-g9-f87"/>
+                                <constraint firstItem="UYs-Gc-Npz" firstAttribute="centerX" secondItem="c6D-Gd-Yet" secondAttribute="centerX" id="csG-vn-FgC"/>
                             </constraints>
                         </view>
                         <prototypes>
@@ -184,7 +181,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="mOe-r2-cfy"/>
                     <connections>
-                        <outlet property="photoImageView" destination="0CQ-kL-lcM" id="NxA-aE-Yyu"/>
+                        <outlet property="photoImageView" destination="6MB-DP-8ks" id="YiX-ro-2o4"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vEc-QN-HA4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
