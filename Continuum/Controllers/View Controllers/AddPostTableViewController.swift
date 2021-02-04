@@ -23,9 +23,7 @@ class AddPostTableViewController: UITableViewController{
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        //postImageView.image = nil
         captionTextField.text = ""
-        //selectPhotoButton.setTitle("Select Image", for: .normal)
     }
     
     // MARK: - Properties
@@ -33,9 +31,10 @@ class AddPostTableViewController: UITableViewController{
     
     // MARK: - Actions
     @IBAction func addPostButtonTapped(_ sender: UIButton) {
+        print("Button Tapped")
         guard let photo = selectedImage,
-              let caption = captionTextField.text else { return }
-        PostController.shared.createPostWith(image: photo, caption: caption) { (result) in
+              let caption = captionTextField.text, !caption.isEmpty else { return }
+        PostController.shared.createPostWith(image: photo, caption: caption) { (_) in
         }
         self.tabBarController?.selectedIndex = 0
     }
@@ -47,8 +46,8 @@ class AddPostTableViewController: UITableViewController{
     // MARK: - Segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toPhotoPicker" {
-            let photo = segue.destination as? PhotoSelectorViewController
-            photo?.delegate = self
+            let destination = segue.destination as? PhotoSelectorViewController
+            destination?.delegate = self
         }
     }
 }//End of Class

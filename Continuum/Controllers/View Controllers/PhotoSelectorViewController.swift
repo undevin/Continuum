@@ -17,12 +17,17 @@ class PhotoSelectorViewController: UIViewController {
     
     // MARK: - Outlets
     @IBOutlet weak var photoImageView: UIImageView!
-    
+    @IBOutlet weak var selectPhotoButton: UIButton!
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        photoImageView.image = nil
+        selectPhotoButton.setTitle("Set Photo", for: .normal)
     }
     
     // MARK: - Properties
@@ -35,25 +40,33 @@ class PhotoSelectorViewController: UIViewController {
     
     // MARK: - Functions
     func presentImagePicker() {
+        let imageActionSheet = UIAlertController(title: "Add Image", message: "", preferredStyle: .actionSheet)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        let photoAction = UIAlertAction(title: "Photo Library", style: .default, handler: { (_) in
+            self.selectAnImage(source: .photoLibrary)
+        })
+        
+        imageActionSheet.addAction(cancelAction)
+        imageActionSheet.addAction(photoAction)
+        present(imageActionSheet, animated: true)
+    }
+    
+    func selectAnImage(source: UIImagePickerController.SourceType) {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.sourceType = .photoLibrary
-        imagePicker.allowsEditing = true
-        let imageActionSheet = UIAlertController(title: "Add Image", message: "", preferredStyle: .actionSheet)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-        imageActionSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { (_) in
-            self.present(imagePicker, animated: true)
-        }))
-        imageActionSheet.addAction(cancelAction)
-        present(imageActionSheet, animated: true)
+        present(imagePicker, animated: true)
     }
+    
 }//End of Class
 
 // MARK: - Extensions
 extension PhotoSelectorViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let image = info[.editedImage] as? UIImage {
+        if let image = info[.originalImage] as? UIImage {
+            selectPhotoButton.setTitle("Set Photo", for: .normal)
             photoImageView.image = image
+            delegate?.photoSelectViewControllerSelected(image: image)
         }
         dismiss(animated: true)
     }

@@ -33,7 +33,8 @@ class PostDetailTableViewController: UITableViewController {
     }
     
     @IBAction func shareButtonTapped(_ sender: UIButton) {
-        
+        let image = UIActivityViewController(activityItems: [post], applicationActivities: .none)
+        present(image, animated: true)
     }
     
     @IBAction func followButtonTapped(_ sender: UIButton) {
