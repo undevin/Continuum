@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddPostTableViewController: UITableViewController {
+class AddPostTableViewController: UITableViewController{
     
     // MARK: - Outlets
     @IBOutlet weak var postImageView: UIImageView!
@@ -28,10 +28,12 @@ class AddPostTableViewController: UITableViewController {
         selectPhotoButton.setTitle("Select Image", for: .normal)
     }
     
+    // MARK: - Properties
+    var delegate: UIImagePickerControllerDelegate?
+    
     // MARK: - Actions
     @IBAction func selectedPhotoButtonTapped(_ sender: UIButton) {
-        postImageView.image = #imageLiteral(resourceName: "spaceEmptyState")
-        selectPhotoButton.setTitle("", for: .normal)
+        presentUIImagePicker()
     }
     
     @IBAction func addPostButtonTapped(_ sender: UIButton) {
@@ -45,4 +47,38 @@ class AddPostTableViewController: UITableViewController {
     @IBAction func cancelButtonTapped(_ sender: Any) {
         self.tabBarController?.selectedIndex = 0
     }
+    
+    // MARK: - Segue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toPhotoPicker" {
+            let photo = segue.destination as? PhotoSelectorViewController
+            photo?.delegate = self
+        }
+    }
+    
+    // MARK: - Methods
+    
+    func presentUIImagePicker() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.allowsEditing = true
+        imagePicker.delegate = self
+        imagePicker.sourceType = .photoLibrary
+        present(imagePicker, animated: true)
+        
+    }
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        guard let image = info[.editedImage] as? UIImage else { return }
+        let imageName = UUID().uuidString
+        let imagePath = getDocumentsDirectory().appendingPathComponent(imageName)
+        if let jpegData = image.jpegData(compressionQuality: 0.8) {
+            try? jpegData.write(to: imagePath)
+        }
+        dismiss(animated: true)
+    }
 }//End of Class
+
+extension AddPostTableViewController: PhotoSelectorViewControllerDelegate {
+    func photoSelectViewControllerSelected(image: UIImage) {
+        <#code#>
+    }
+}

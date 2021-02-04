@@ -30,3 +30,14 @@ class Post {
         self.photo = photo
     }
 }//End of Class
+
+// MARK: - Extensions
+extension Post: SearchableRecord {
+    func matches(searchTerm: String) -> Bool {
+        if caption.contains(searchTerm) {
+            return true
+        } else {
+            return false
+        }
+    }
+}//End of Extension
