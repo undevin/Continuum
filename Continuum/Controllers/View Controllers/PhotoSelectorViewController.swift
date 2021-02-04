@@ -28,13 +28,10 @@ class PhotoSelectorViewController: UIViewController {
     // MARK: - Properties
     weak var delegate: PhotoSelectorViewControllerDelegate?
     
-    
-    
     // MARK: - Actions
     @IBAction func photoSelectedButtonTapped(_ sender: UIButton) {
-        
+        presentImagePicker()
     }
-    
     
     // MARK: - Functions
     func presentImagePicker() {
@@ -42,24 +39,23 @@ class PhotoSelectorViewController: UIViewController {
         imagePicker.delegate = self
         imagePicker.sourceType = .photoLibrary
         imagePicker.allowsEditing = true
-        let photoSelect = UIAlertAction(title: "Photo Library", style: .default) { (_) in
-            self.present(imagePicker, animated: true, completion: nil)
-        }
-        let cancelAction = UIAl
+        let imageActionSheet = UIAlertController(title: "Add Image", message: "", preferredStyle: .actionSheet)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        imageActionSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { (_) in
+            self.present(imagePicker, animated: true)
+        }))
+        imageActionSheet.addAction(cancelAction)
+        present(imageActionSheet, animated: true)
     }
-    
-    
-    
 }//End of Class
 
 // MARK: - Extensions
 extension PhotoSelectorViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        guard let image = info[.editedImage] as? UIImage else { return }
-        let imageName = UUID().uuidString
-        if let jpegData = image.jpegData(compressionQuality: 0.8) {
-            try? jpegData.write(to: imagePath)
+        if let image = info[.editedImage] as? UIImage {
+            photoImageView.image = image
         }
         dismiss(animated: true)
     }
 }
+
