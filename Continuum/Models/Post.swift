@@ -34,7 +34,7 @@ class Post {
 // MARK: - Extensions
 extension Post: SearchableRecord {
     func matches(searchTerm: String) -> Bool {
-        if caption.contains(searchTerm) {
+        if caption.lowercased().contains(searchTerm.lowercased()) {
             return true
         } else {
             return false
