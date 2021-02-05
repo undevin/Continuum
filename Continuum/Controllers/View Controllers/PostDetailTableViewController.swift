@@ -33,8 +33,9 @@ class PostDetailTableViewController: UITableViewController {
     }
     
     @IBAction func shareButtonTapped(_ sender: UIButton) {
-        let image = UIActivityViewController(activityItems: [post], applicationActivities: .none)
-        present(image, animated: true)
+        guard let comment = post?.caption else { return }
+        let shareSheet = UIActivityViewController(activityItems: [comment], applicationActivities: nil)
+        present(shareSheet, animated: true, completion: nil)
     }
     
     @IBAction func followButtonTapped(_ sender: UIButton) {
@@ -74,7 +75,6 @@ class PostDetailTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "commentCell", for: indexPath)
         let comment = post?.comments[indexPath.row]
-        
         cell.textLabel?.text = comment?.text
         cell.detailTextLabel?.text = DateFormatter.postDate.string(from: comment?.timestamp ?? Date())
         

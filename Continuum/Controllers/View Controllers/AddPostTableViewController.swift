@@ -11,10 +11,7 @@ import UIKit
 class AddPostTableViewController: UITableViewController{
     
     // MARK: - Outlets
-   // @IBOutlet weak var postImageView: UIImageView!
     @IBOutlet weak var captionTextField: UITextField!
-    //@IBOutlet weak var selectPhotoButton: UIButton!
-    
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -31,7 +28,6 @@ class AddPostTableViewController: UITableViewController{
     
     // MARK: - Actions
     @IBAction func addPostButtonTapped(_ sender: UIButton) {
-        print("Button Tapped")
         guard let photo = selectedImage,
               let caption = captionTextField.text, !caption.isEmpty else { return }
         PostController.shared.createPostWith(image: photo, caption: caption) { (_) in
