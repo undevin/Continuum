@@ -12,7 +12,7 @@ struct CommentStrings {
     static let recordType = "Comment"
     fileprivate static let textKey = "text"
     fileprivate static let timestampKey = "timestamp"
-    fileprivate static let postReferenceKey = "post"
+    static let postReferenceKey = "post"
 }
 
 
@@ -55,8 +55,9 @@ extension CKRecord {
         self.init(recordType: CommentStrings.recordType, recordID: comment.recordID)
         setValuesForKeys([
             CommentStrings.textKey : comment.text,
-            CommentStrings.timestampKey : comment.timestamp
+            CommentStrings.timestampKey : comment.timestamp,
+            CommentStrings.postReferenceKey : comment.postReference
         ])
     }
 }//End of Extension
-    
+

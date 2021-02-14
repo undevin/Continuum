@@ -16,6 +16,7 @@ class AddPostTableViewController: UITableViewController{
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        tabBarItem.title = "Add Post"
     }
     
     override func viewDidDisappear(_ animated: Bool) {

@@ -28,7 +28,7 @@ class PostListTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         postSearchBar.delegate = self
-        
+        fullSyncOpertaion(completion: )
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -36,6 +36,19 @@ class PostListTableViewController: UITableViewController {
         resultsArray = PostController.shared.posts
         tableView.reloadData()
     }
+    
+    // MARK: - Methods
+    func fullSyncOpertaion(completion: @escaping() -> Void?) {
+        PostController.shared.fetchPosts { (result) in
+            switch result {
+            case .success(_):
+                self.tableView.reloadData()
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
     
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

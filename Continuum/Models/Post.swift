@@ -15,6 +15,7 @@ struct PostStrings {
     fileprivate static let timestampKey = "timestamp"
     fileprivate static let commentsKey = "comments"
     fileprivate static let photoAssetKey = "photo"
+    fileprivate static let commentCountKey = "commentCount"
     
 }//End of Struct
 
@@ -25,6 +26,7 @@ class Post {
     var caption: String
     var comments: [Comment]
     var recordID: CKRecord.ID
+    var commentCount: Int = 0
     var photoAsset: CKAsset? {
         get {
             let tempDirectory = NSTemporaryDirectory()
@@ -49,11 +51,12 @@ class Post {
         }
     }
     
-    init(photo: UIImage, caption: String, timestamp: Date = Date(), comments: [Comment] = [], recordID: CKRecord.ID = CKRecord.ID(recordName: UUID().uuidString)) {
+    init(photo: UIImage, caption: String, timestamp: Date = Date(), comments: [Comment] = [], commentCount: Int, recordID: CKRecord.ID = CKRecord.ID(recordName: UUID().uuidString)) {
         self.caption = caption
         self.timestamp = timestamp
         self.comments = comments
         self.recordID = recordID
+        self.commentCount = commentCount
         self.photo = photo
         
     }
@@ -73,7 +76,9 @@ extension Post: SearchableRecord {
 extension Post {
     convenience init?(ckRecord: CKRecord) {
         guard let caption = ckRecord[PostStrings.captionKey] as? String,
-              let timestamp = ckRecord[PostStrings.timestampKey] as? Date else { return nil }
+              let timestamp = ckRecord[PostStrings.timestampKey] as? Date,
+              let comments = ckRecord[PostStrings.commentsKey] as? [Comment],
+              let commentCount = ckRecord[PostStrings.commentCountKey] as? Int else { return nil }
         var foundPhoto: UIImage?
         if let photoAsset = ckRecord[PostStrings.photoAssetKey] as? CKAsset {
             do {
@@ -83,8 +88,7 @@ extension Post {
                 print("Could not transform asset into data")
             }
         }
-        
-        self.init(photo: foundPhoto ?? UIImage(), caption: caption, timestamp: timestamp)
+        self.init(photo: foundPhoto ?? UIImage(), caption: caption, timestamp: timestamp, comments: comments, commentCount: commentCount)
     }
 }
 
@@ -95,7 +99,8 @@ extension CKRecord {
             PostStrings.captionKey : post.caption,
             PostStrings.timestampKey : post.timestamp,
             PostStrings.photoAssetKey : post.photo,
-            PostStrings.commentsKey : post.comments
+            PostStrings.commentsKey : post.comments,
+            PostStrings.commentCountKey : post.commentCount
         ])
     }
 }//End of Extension
