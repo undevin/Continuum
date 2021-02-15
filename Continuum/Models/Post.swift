@@ -26,7 +26,7 @@ class Post {
     var caption: String
     var comments: [Comment]
     var recordID: CKRecord.ID
-    var commentCount: Int = 0
+    var commentCount: Int
     var photoAsset: CKAsset? {
         get {
             let tempDirectory = NSTemporaryDirectory()
@@ -51,14 +51,13 @@ class Post {
         }
     }
     
-    init(photo: UIImage, caption: String, timestamp: Date = Date(), comments: [Comment] = [], commentCount: Int, recordID: CKRecord.ID = CKRecord.ID(recordName: UUID().uuidString)) {
+    init(photo: UIImage, caption: String, timestamp: Date = Date(), comments: [Comment] = [], commentCount: Int = 0, recordID: CKRecord.ID = CKRecord.ID(recordName: UUID().uuidString)) {
         self.caption = caption
         self.timestamp = timestamp
         self.comments = comments
         self.recordID = recordID
         self.commentCount = commentCount
         self.photo = photo
-        
     }
 }//End of Class
 
@@ -98,7 +97,7 @@ extension CKRecord {
         setValuesForKeys([
             PostStrings.captionKey : post.caption,
             PostStrings.timestampKey : post.timestamp,
-            PostStrings.photoAssetKey : post.photo,
+            PostStrings.photoAssetKey : post.photoAsset,
             PostStrings.commentsKey : post.comments,
             PostStrings.commentCountKey : post.commentCount
         ])

@@ -16,7 +16,17 @@ class PostDetailTableViewController: UITableViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        guard let post = post else { return }
+        PostController.shared.fetchComments(for: post) { (result) in
+            switch result {
+            case .success(_):
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
     
     // MARK: - Properties
@@ -41,7 +51,7 @@ class PostDetailTableViewController: UITableViewController {
     @IBAction func followButtonTapped(_ sender: UIButton) {
         
     }
-
+    
     // MARK: - Methods
     func updateViews() {
         photoImageView.image = post?.photo

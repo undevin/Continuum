@@ -28,17 +28,18 @@ class PostListTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         postSearchBar.delegate = self
-        fullSyncOpertaion(completion: )
+        fullSyncOpertaion(completion: {_ in})
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         resultsArray = PostController.shared.posts
+        self.title = "Posts"
         tableView.reloadData()
     }
     
     // MARK: - Methods
-    func fullSyncOpertaion(completion: @escaping() -> Void?) {
+    func fullSyncOpertaion(completion: @escaping(String) -> Void?) {
         PostController.shared.fetchPosts { (result) in
             switch result {
             case .success(_):

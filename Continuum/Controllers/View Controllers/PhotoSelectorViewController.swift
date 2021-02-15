@@ -27,7 +27,6 @@ class PhotoSelectorViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         photoImageView.image = nil
-        selectPhotoButton.setTitle("Set Photo", for: .normal)
     }
     
     // MARK: - Properties

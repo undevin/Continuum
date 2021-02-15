@@ -33,14 +33,14 @@ class PostController {
             guard let record = record,
                   let comment = Comment(ckRecord: record, post: post) else { return completion(.failure(.unableToUnwrap)) }
             post.comments.append(comment)
-            post.commentCount += 1
+            self.updateCommentCount(post: post, completion: {_ in})
             completion(.success(comment))
         }
         
     }
     
-    func createPostWith(image: UIImage, caption: String, commentCount: Int, completion: @escaping (Result<Post?,PostError>) -> Void) {
-        let newPost = Post(photo: image, caption: caption, commentCount: commentCount)
+    func createPostWith(image: UIImage, caption: String, completion: @escaping (Result<Post?,PostError>) -> Void) {
+        let newPost = Post(photo: image, caption: caption)
         let record = CKRecord(post: newPost)
         
         publicDB.save(record) { (record, error) in
@@ -80,8 +80,8 @@ class PostController {
     }
     
     func fetchComments(for post: Post, completion: @escaping (Result<[Comment]?,PostError>) -> Void) {
-        let postRefence = post.recordID
-        let predicate = NSPredicate(format: "%K == %@", CommentStrings.postReferenceKey , postRefence)
+        let postReference = post.recordID
+        let predicate = NSPredicate(format: "%K == %@", CommentStrings.postReferenceKey , postReference)
         let commentIDs = post.comments.compactMap({$0.recordID})
         
         let predicate2 = NSPredicate(format: "NOT(recordID IN %@)", commentIDs)
@@ -104,5 +104,26 @@ class PostController {
         }
     }
     
-    
+    func updateCommentCount(post: Post, completion: @escaping (String) -> Void?) {
+        post.commentCount += 1
+        let record = CKRecord(post: post)
+            
+        let operation = CKModifyRecordsOperation(recordsToSave: [record], recordIDsToDelete: nil)
+        operation.savePolicy = .changedKeys
+        operation.modifyRecordsCompletionBlock = { record, _, error in
+            if let error = error {
+                print("===== ERROR =====")
+                print("Function: \(#function)")
+                print(error)
+                print("Description: \(error.localizedDescription)")
+                print("===== ERROR =====")
+                completion("Unable to update comment count")
+                return
+            } else {
+                completion("Updated comment count")
+                return
+            }
+        }
+        publicDB.add(operation)
+    }
 }//End of Class
